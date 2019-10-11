@@ -11,6 +11,9 @@ library(tidyr)
 cst_dat <- read_csv(here::here("../cyano_space_time/data/cst_data_2017.csv"), 
                     na = c("", "NA", "na")) %>%
   filter(depth %in% c("0","1","2","int")) %>%
+  mutate(variable = case_when(variable == "%do" ~
+                                "perc_do",
+                              TRUE ~ variable)) %>%
   na.omit()
   
 # Current algae torch data
