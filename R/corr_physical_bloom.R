@@ -32,7 +32,7 @@ phyco_cor <- dat %>%
             spc_cor = cor(spc, log_phyco),
             temp_cor = cor(temp, log_phyco))
 
-gg_date_chla <- dat %>%
+gg_all_chla <- dat %>%
   filter(ph < 14, chla < 100, date >= "2018-01-01" & date <= "2018-12-31") %>%
   mutate(logchla = log1p(chla))%>%
   select(date, waterbody, site, logchla, do, ph, spc, temp, turb) %>%
@@ -40,18 +40,14 @@ gg_date_chla <- dat %>%
   ggplot(aes(x = date, y = value)) +
   geom_point() +
   facet_grid(variable ~ waterbody, scales = "free_y")
-gg_date_chla
+gg_all_chla
 
-gg_do_chla <- dat %>%
-  filter(ph < 14, chla < 100, date >= "2018-01-01" & date <= "2018-12-31") %>%
-  ggplot(aes(x = do, y = log1p(chla))) +
+gg_all_phyco <- dat %>%
+  filter(ph < 14, phyco < 100, date >= "2018-01-01" & date <= "2018-12-31") %>%
+  mutate(logphyco = log1p(phyco))%>%
+  select(date, waterbody, site, logphyco, do, ph, spc, temp, turb) %>%
+  gather("variable", "value", logphyco:turb) %>%
+  ggplot(aes(x = date, y = value)) +
   geom_point() +
-  facet_grid(waterbody ~ .)
-gg_do_chla
-
-gg_ph_chla <- dat %>%
-  filter(ph < 14, chla < 100, date >= "2018-01-01" & date <= "2018-12-31") %>%
-  ggplot(aes(x = ph, y = log1p(chla))) +
-  geom_point() +
-  facet_grid(waterbody ~ .)
-gg_ph_chla
+  facet_grid(variable ~ waterbody, scales = "free_y")
+gg_all_phyco
