@@ -98,7 +98,6 @@ dat <- rbind(cst_dat, at_dat, chla_dat, phyco_dat) %>%
 # Wide with at least both chla and phyco extracted
 dat_wide <- dat %>%
   select(date, waterbody, site, variable, mn_value) %>%
-  spread("variable", "mn_value") %>%
-  filter(!is.na(chla),!is.na(phyco))
+  spread("variable", "mn_value")
 
 write_csv(dat_wide, "data/phsyical_bloom_data.csv")
