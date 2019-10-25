@@ -52,17 +52,4 @@ gg_all_phyco <- dat %>%
   facet_grid(variable ~ waterbody, scales = "free_y")
 gg_all_phyco
 
-gg_torch <- dat %>%
-  filter(date >= "2018-01-01" & date <= "2019-12-31") %>%
-  select(date, waterbody, site, torch_chla, torch_cyano) %>%
-  group_by(date, waterbody) %>%
-  summarize(torch_chla = mean(torch_chla, na.rm = TRUE),
-            torch_cyano = mean(torch_cyano, na.rm = TRUE)) %>%
-  ungroup() %>%
-  gather("variable", "value", torch_chla:torch_cyano) %>%
-  ggplot(aes(x = date, y = value)) +
-  geom_point() +
-  facet_grid(waterbody ~ variable, scales = "free_y")
-gg_torch  
-  
-  
+
